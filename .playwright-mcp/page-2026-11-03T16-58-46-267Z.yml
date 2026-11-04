@@ -1,0 +1,99 @@
+- generic [ref=e3]:
+  - complementary [ref=e4]:
+    - generic "Dream Path" [ref=e5]:
+      - img [ref=e6]:
+        - generic [ref=e12]: DREAM
+        - generic [ref=e13]: CAREER PATH
+    - generic [ref=e14]:
+      - generic [ref=e15]: A
+      - generic [ref=e16]:
+        - strong [ref=e17]: Alex Rivera
+        - generic [ref=e18]: Primary • Level 4
+    - navigation [ref=e19]:
+      - button "Home" [ref=e20] [cursor=pointer]
+      - button "Dream Paths" [ref=e25] [cursor=pointer]
+      - button "Achievements 3" [active] [ref=e30] [cursor=pointer]:
+        - generic [ref=e34]: Achievements
+        - generic [ref=e35]: "3"
+      - button "Parent Space" [ref=e36] [cursor=pointer]
+      - button "Profile" [ref=e40] [cursor=pointer]
+    - generic [ref=e45]:
+      - generic [ref=e49]:
+        - strong [ref=e50]: Safe to explore
+        - generic [ref=e51]: Parent supervised
+      - button "Settings" [ref=e52] [cursor=pointer]
+  - main [ref=e57]:
+    - generic [ref=e58]:
+      - generic [ref=e59]:
+        - generic [ref=e60]: YOUR DREAM DASHBOARD
+        - strong [ref=e61]: Good evening, Alex
+      - generic [ref=e62]:
+        - generic [ref=e63]:
+          - strong [ref=e66]: "7"
+          - generic [ref=e67]: day streak
+        - button "Toggle color mode" [ref=e68] [cursor=pointer]
+        - button "A" [ref=e72] [cursor=pointer]
+    - generic [ref=e334]:
+      - generic [ref=e335]:
+        - text: GLOBAL LEADERBOARD
+        - heading "Top Dreamers" [level=1] [ref=e336]
+        - paragraph [ref=e337]: Points and virtual earnings reward learning, consistency, and smart decisions—not screen time.
+      - generic [ref=e338]:
+        - article [ref=e339]:
+          - generic [ref=e343]:
+            - generic [ref=e344]: GLOBAL RANK
+            - strong [ref=e345]: "#18"
+        - article [ref=e346]:
+          - generic [ref=e349]:
+            - generic [ref=e350]: TOTAL POINTS
+            - strong [ref=e351]: 1,280 XP
+        - article [ref=e352]:
+          - generic [ref=e355]:
+            - generic [ref=e356]: VIRTUAL EARNINGS
+            - strong [ref=e357]: $2,160
+      - generic [ref=e358]:
+        - generic [ref=e359]:
+          - generic [ref=e360]: RANK & DREAMER
+          - generic [ref=e361]: POINTS
+          - generic [ref=e362]: EARNINGS
+        - generic [ref=e363]:
+          - generic [ref=e364]:
+            - generic [ref=e365]: "1"
+            - generic [ref=e366]: "N"
+            - strong [ref=e367]: Nadia K.
+          - generic [ref=e368]: 8,940 XP
+          - generic [ref=e369]: $12,400
+        - generic [ref=e370]:
+          - generic [ref=e371]:
+            - generic [ref=e372]: "2"
+            - generic [ref=e373]: T
+            - strong [ref=e374]: Theo J.
+          - generic [ref=e375]: 8,720 XP
+          - generic [ref=e376]: $11,980
+        - generic [ref=e377]:
+          - generic [ref=e378]:
+            - generic [ref=e379]: "3"
+            - generic [ref=e380]: A
+            - strong [ref=e381]: Amir S.
+          - generic [ref=e382]: 8,340 XP
+          - generic [ref=e383]: $11,250
+        - generic [ref=e384]:
+          - generic [ref=e385]:
+            - generic [ref=e386]: "18"
+            - generic [ref=e387]: A
+            - strong [ref=e388]: Alex RiveraYOU
+          - generic [ref=e389]: 1,280 XP
+          - generic [ref=e390]: $2,160
+      - generic [ref=e392]:
+        - text: YOUR COLLECTION
+        - heading "Recent achievements" [level=2] [ref=e393]
+      - generic [ref=e394]:
+        - article [ref=e395]:
+          - strong [ref=e399]: Cyber Guardian
+          - generic [ref=e400]: Block your first breach
+        - article [ref=e401]:
+          - strong [ref=e406]: Sharp Advocate
+          - generic [ref=e407]: Win a defense case
+        - article [ref=e408]:
+          - strong [ref=e413]: Careful Clinician
+          - generic [ref=e414]: Choose safe treatment

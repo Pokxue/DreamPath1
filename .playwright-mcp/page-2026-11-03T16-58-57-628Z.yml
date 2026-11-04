@@ -1,0 +1,70 @@
+- generic [ref=e3]:
+  - complementary [ref=e4]:
+    - generic "Dream Path" [ref=e5]:
+      - img [ref=e6]:
+        - generic [ref=e12]: DREAM
+        - generic [ref=e13]: CAREER PATH
+    - generic [ref=e14]:
+      - generic [ref=e15]: A
+      - generic [ref=e16]:
+        - strong [ref=e17]: Alex Rivera
+        - generic [ref=e18]: Primary • Level 4
+    - navigation [ref=e19]:
+      - button "Home" [ref=e20] [cursor=pointer]
+      - button "Dream Paths" [ref=e25] [cursor=pointer]
+      - button "Achievements 3" [ref=e30] [cursor=pointer]:
+        - generic [ref=e34]: Achievements
+        - generic [ref=e35]: "3"
+      - button "Parent Space" [ref=e36] [cursor=pointer]
+      - button "Profile" [active] [ref=e40] [cursor=pointer]
+    - generic [ref=e45]:
+      - generic [ref=e49]:
+        - strong [ref=e50]: Safe to explore
+        - generic [ref=e51]: Parent supervised
+      - button "Settings" [ref=e52] [cursor=pointer]
+  - main [ref=e57]:
+    - generic [ref=e58]:
+      - generic [ref=e59]:
+        - generic [ref=e60]: YOUR DREAM DASHBOARD
+        - strong [ref=e61]: Good evening, Alex
+      - generic [ref=e62]:
+        - generic [ref=e63]:
+          - strong [ref=e66]: "7"
+          - generic [ref=e67]: day streak
+        - button "Toggle color mode" [ref=e68] [cursor=pointer]
+        - button "A" [ref=e72] [cursor=pointer]
+    - generic [ref=e334]:
+      - generic [ref=e335]:
+        - text: YOUR IDENTITY
+        - heading "Explorer profile" [level=1] [ref=e426]
+        - paragraph [ref=e337]: Your personal information and complete journey in one place.
+      - generic [ref=e427]:
+        - generic [ref=e428]:
+          - generic [ref=e436]:
+            - heading "Alex Rivera" [level=2] [ref=e437]
+            - paragraph [ref=e438]: "@alexdreams • ID DR-10482"
+            - text: PRIMARY EXPLORER
+          - button "Edit profile" [ref=e439]
+        - generic [ref=e440]:
+          - article [ref=e441]:
+            - generic [ref=e442]: AGE
+            - strong [ref=e443]: 11 years old
+          - article [ref=e444]:
+            - generic [ref=e445]: JOINED
+            - strong [ref=e446]: 12 January 2025
+          - article [ref=e447]:
+            - generic [ref=e448]: ACTIVE PATH
+            - strong [ref=e449]: Software Engineer
+          - article [ref=e450]:
+            - generic [ref=e451]: CURRENT LEVEL
+            - strong [ref=e452]: Level 4 • Pathfinder
+        - generic [ref=e453]:
+          - generic [ref=e454]:
+            - generic [ref=e458]: 1,280
+            - generic [ref=e459]: Total XP
+          - generic [ref=e460]:
+            - generic [ref=e465]: "24"
+            - generic [ref=e466]: Missions
+          - generic [ref=e467]:
+            - generic [ref=e471]: 7 days
+            - generic [ref=e472]: Best streak

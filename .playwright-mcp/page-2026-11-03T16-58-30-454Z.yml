@@ -1,0 +1,73 @@
+- generic [ref=e3]:
+  - complementary [ref=e4]:
+    - generic "Dream Path" [ref=e5]:
+      - img [ref=e6]:
+        - generic [ref=e12]: DREAM
+        - generic [ref=e13]: CAREER PATH
+    - generic [ref=e14]:
+      - generic [ref=e15]: A
+      - generic [ref=e16]:
+        - strong [ref=e17]: Alex Rivera
+        - generic [ref=e18]: Primary • Level 4
+    - navigation [ref=e19]:
+      - button "Home" [ref=e20] [cursor=pointer]
+      - button "Dream Paths" [active] [ref=e25] [cursor=pointer]
+      - button "Achievements 3" [ref=e30] [cursor=pointer]:
+        - generic [ref=e34]: Achievements
+        - generic [ref=e35]: "3"
+      - button "Parent Space" [ref=e36] [cursor=pointer]
+      - button "Profile" [ref=e40] [cursor=pointer]
+    - generic [ref=e45]:
+      - generic [ref=e49]:
+        - strong [ref=e50]: Safe to explore
+        - generic [ref=e51]: Parent supervised
+      - button "Settings" [ref=e52] [cursor=pointer]
+  - main [ref=e57]:
+    - generic [ref=e58]:
+      - generic [ref=e59]:
+        - generic [ref=e60]: YOUR DREAM DASHBOARD
+        - strong [ref=e61]: Good evening, Alex
+      - generic [ref=e62]:
+        - generic [ref=e63]:
+          - strong [ref=e66]: "7"
+          - generic [ref=e67]: day streak
+        - button "Toggle color mode" [ref=e68] [cursor=pointer]
+        - button "A" [ref=e72] [cursor=pointer]
+    - generic [ref=e238]:
+      - generic [ref=e239]:
+        - text: DREAM DISCOVERY
+        - heading "What kind of problems excite you?" [level=1] [ref=e240]
+        - paragraph [ref=e241]: A short interest and aptitude test helps recommend a path. Your answer is never used to limit your choices.
+      - generic [ref=e242]:
+        - generic [ref=e243]: Question 1 of 3
+        - generic [ref=e247]:
+          - heading "When a group faces a difficult problem, what do you enjoy most?" [level=2] [ref=e252]
+          - generic [ref=e253]:
+            - button "A Finding the pattern and building a solution" [ref=e254] [cursor=pointer]:
+              - generic [ref=e255]: A
+              - text: Finding the pattern and building a solution
+            - button "B Listening to both sides and making a fair case" [ref=e258] [cursor=pointer]:
+              - generic [ref=e259]: B
+              - text: Listening to both sides and making a fair case
+            - button "C Understanding what someone needs and helping them" [ref=e262] [cursor=pointer]:
+              - generic [ref=e263]: C
+              - text: Understanding what someone needs and helping them
+      - generic [ref=e267]:
+        - text: OR EXPLORE DIRECTLY
+        - heading "Career simulations" [level=2] [ref=e268]
+      - generic [ref=e269]:
+        - article [ref=e270] [cursor=pointer]:
+          - generic [ref=e271]: Stage 3 of 8
+          - heading "Software Engineer" [level=3] [ref=e276]
+          - paragraph [ref=e277]: Build a friendly study app
+          - button "Open simulation" [ref=e278]
+        - article [ref=e281] [cursor=pointer]:
+          - generic [ref=e282]: Stage 1 of 8
+          - heading "Junior Lawyer" [level=3] [ref=e288]
+          - paragraph [ref=e289]: Solve a fair playground case
+          - button "Open simulation" [ref=e290]
+        - article [ref=e293] [cursor=pointer]:
+          - generic [ref=e294]: Stage 2 of 8
+          - heading "Future Doctor" [level=3] [ref=e300]
+          - paragraph [ref=e301]: Help a patient feel better
+          - button "Open simulation" [ref=e302]

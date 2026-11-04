@@ -1,0 +1,72 @@
+- generic [ref=e3]:
+  - complementary [ref=e4]:
+    - generic "Dream Path" [ref=e5]:
+      - img [ref=e6]:
+        - generic [ref=e12]: DREAM
+        - generic [ref=e13]: CAREER PATH
+    - generic [ref=e14]:
+      - generic [ref=e15]: A
+      - generic [ref=e16]:
+        - strong [ref=e17]: Alex Rivera
+        - generic [ref=e18]: Primary • Level 4
+    - navigation [ref=e19]:
+      - button "Home" [ref=e20] [cursor=pointer]
+      - button "Dream Paths" [ref=e25] [cursor=pointer]
+      - button "Achievements 3" [ref=e30] [cursor=pointer]:
+        - generic [ref=e34]: Achievements
+        - generic [ref=e35]: "3"
+      - button "Parent Space" [ref=e36] [cursor=pointer]
+      - button "Profile" [ref=e40] [cursor=pointer]
+    - generic [ref=e45]:
+      - generic [ref=e49]:
+        - strong [ref=e50]: Safe to explore
+        - generic [ref=e51]: Parent supervised
+      - button "Settings" [active] [ref=e52] [cursor=pointer]
+  - main [ref=e57]:
+    - generic [ref=e58]:
+      - generic [ref=e59]:
+        - generic [ref=e60]: YOUR DREAM DASHBOARD
+        - strong [ref=e61]: Good evening, Alex
+      - generic [ref=e62]:
+        - generic [ref=e63]:
+          - strong [ref=e66]: "7"
+          - generic [ref=e67]: day streak
+        - button "Toggle color mode" [ref=e68] [cursor=pointer]
+        - button "A" [ref=e72] [cursor=pointer]
+    - generic [ref=e334]:
+      - generic [ref=e335]:
+        - text: PREFERENCES
+        - heading "Settings" [level=1] [ref=e473]
+        - paragraph [ref=e337]: Make DreamPath comfortable, accessible, and safe for you.
+      - generic [ref=e427]:
+        - generic [ref=e428]:
+          - heading "Learning experience" [level=3] [ref=e474]
+          - article [ref=e475]:
+            - generic [ref=e479]:
+              - strong [ref=e480]: Read questions aloud
+              - generic [ref=e481]: Hear instructions and important clues
+            - button [ref=e482]
+          - article [ref=e484]:
+            - generic [ref=e488]:
+              - strong [ref=e489]: Sound effects
+              - generic [ref=e490]: Mission feedback and celebration sounds
+            - button [ref=e491]
+          - article [ref=e493]:
+            - generic [ref=e497]:
+              - strong [ref=e498]: Reduce motion
+              - generic [ref=e499]: Use fewer animations and transitions
+            - button [ref=e500]
+        - generic [ref=e440]:
+          - heading "Account & safety" [level=3] [ref=e502]
+          - button "Personal information Name, age, education level" [ref=e503]:
+            - generic [ref=e508]:
+              - strong [ref=e509]: Personal information
+              - generic [ref=e510]: Name, age, education level
+          - button "Parent connection Maria Rivera • Verified" [ref=e513]:
+            - generic [ref=e517]:
+              - strong [ref=e518]: Parent connection
+              - generic [ref=e519]: Maria Rivera • Verified
+          - button "Screen time 60 minute daily limit" [ref=e522]:
+            - generic [ref=e527]:
+              - strong [ref=e528]: Screen time
+              - generic [ref=e529]: 60 minute daily limit

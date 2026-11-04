@@ -1,0 +1,59 @@
+- generic [ref=e3]:
+  - complementary [ref=e4]:
+    - generic "Dream Path" [ref=e5]:
+      - img [ref=e6]:
+        - generic [ref=e12]: DREAM
+        - generic [ref=e13]: CAREER PATH
+    - generic [ref=e14]:
+      - generic [ref=e15]: A
+      - generic [ref=e16]:
+        - strong [ref=e17]: Alex Rivera
+        - generic [ref=e18]: Primary • Level 4
+    - navigation [ref=e19]:
+      - button "Home" [ref=e20] [cursor=pointer]
+      - button "Dream Paths" [ref=e25] [cursor=pointer]
+      - button "Achievements 3" [ref=e30] [cursor=pointer]:
+        - generic [ref=e34]: Achievements
+        - generic [ref=e35]: "3"
+      - button "Parent Space" [ref=e36] [cursor=pointer]
+      - button "Profile" [ref=e40] [cursor=pointer]
+    - generic [ref=e45]:
+      - generic [ref=e49]:
+        - strong [ref=e50]: Safe to explore
+        - generic [ref=e51]: Parent supervised
+      - button "Settings" [ref=e52] [cursor=pointer]
+  - main [ref=e57]:
+    - generic [ref=e58]:
+      - generic [ref=e59]:
+        - generic [ref=e60]: YOUR DREAM DASHBOARD
+        - strong [ref=e61]: Good evening, Alex
+      - generic [ref=e62]:
+        - generic [ref=e63]:
+          - strong [ref=e66]: "7"
+          - generic [ref=e67]: day streak
+        - button "Toggle color mode" [ref=e68] [cursor=pointer]
+        - button "A" [ref=e72] [cursor=pointer]
+    - generic [ref=e305]:
+      - button "← Back to paths" [ref=e306] [cursor=pointer]
+      - generic [ref=e307]:
+        - text: CYBER INCIDENT • SOFTWARE ENGINEERING
+        - heading "Stop the silent breach" [level=1] [ref=e308]
+        - paragraph [ref=e309]: The company login system recorded 42 failed attempts from an unknown device. Find the vulnerable line before customer data is taken.
+      - generic [ref=e310]:
+        - generic [ref=e311]:
+          - generic [ref=e312]:
+            - generic [ref=e313]: ACTIVE MISSION
+            - generic [ref=e316]: +120 XP
+          - generic [ref=e317]:
+            - generic [ref=e318]:
+              - text: security-check.js
+              - generic [ref=e320]: LIVE
+            - code [ref=e321]: 01 const user = request.body.user;02 const password = request.body.password;03 query("SELECT * FROM users WHERE04 name = '" + user + "'");05 return account;
+        - generic [ref=e322]:
+          - text: DECISION 1 OF 3
+          - heading "Which action protects the database first?" [level=2] [ref=e323]
+          - generic [ref=e324]:
+            - button "Use a parameterized query" [ref=e325] [cursor=pointer]
+            - button "Make the password shorter" [ref=e327] [cursor=pointer]
+            - button "Delete every user account" [ref=e329] [cursor=pointer]
+          - button "Submit decision" [disabled] [ref=e331] [cursor=pointer]

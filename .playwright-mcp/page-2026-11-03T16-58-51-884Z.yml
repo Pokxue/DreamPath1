@@ -1,0 +1,50 @@
+- generic [ref=e3]:
+  - complementary [ref=e4]:
+    - generic "Dream Path" [ref=e5]:
+      - img [ref=e6]:
+        - generic [ref=e12]: DREAM
+        - generic [ref=e13]: CAREER PATH
+    - generic [ref=e14]:
+      - generic [ref=e15]: A
+      - generic [ref=e16]:
+        - strong [ref=e17]: Alex Rivera
+        - generic [ref=e18]: Primary • Level 4
+    - navigation [ref=e19]:
+      - button "Home" [ref=e20] [cursor=pointer]
+      - button "Dream Paths" [ref=e25] [cursor=pointer]
+      - button "Achievements 3" [ref=e30] [cursor=pointer]:
+        - generic [ref=e34]: Achievements
+        - generic [ref=e35]: "3"
+      - button "Parent Space" [active] [ref=e36] [cursor=pointer]
+      - button "Profile" [ref=e40] [cursor=pointer]
+    - generic [ref=e45]:
+      - generic [ref=e49]:
+        - strong [ref=e50]: Safe to explore
+        - generic [ref=e51]: Parent supervised
+      - button "Settings" [ref=e52] [cursor=pointer]
+  - main [ref=e57]:
+    - generic [ref=e58]:
+      - generic [ref=e59]:
+        - generic [ref=e60]: YOUR DREAM DASHBOARD
+        - strong [ref=e61]: Good evening, Alex
+      - generic [ref=e62]:
+        - generic [ref=e63]:
+          - strong [ref=e66]: "7"
+          - generic [ref=e67]: day streak
+        - button "Toggle color mode" [ref=e68] [cursor=pointer]
+        - button "A" [ref=e72] [cursor=pointer]
+    - generic [ref=e334]:
+      - generic [ref=e335]:
+        - text: SAFE & SUPPORTED
+        - heading "Parent Space" [level=1] [ref=e415]
+        - paragraph [ref=e337]: A clear supervision area for healthy learning—not surveillance.
+      - generic [ref=e416]:
+        - button "Child view" [ref=e417]
+        - button "Parent view" [ref=e418]
+      - generic [ref=e358]:
+        - generic [ref=e419]: M
+        - generic [ref=e420]:
+          - text: MY LINKED PARENT
+          - heading "Maria Rivera" [level=2] [ref=e421]
+          - paragraph [ref=e422]: Your parent can see your progress, selected dream paths, and screen-time summary.
+        - generic [ref=e423]: Verified parent

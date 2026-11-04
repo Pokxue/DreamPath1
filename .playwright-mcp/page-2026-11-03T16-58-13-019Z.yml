@@ -1,0 +1,123 @@
+- generic [ref=e3]:
+  - complementary [ref=e4]:
+    - generic "Dream Path" [ref=e5]:
+      - img [ref=e6]:
+        - generic [ref=e12]: DREAM
+        - generic [ref=e13]: CAREER PATH
+    - generic [ref=e14]:
+      - generic [ref=e15]: A
+      - generic [ref=e16]:
+        - strong [ref=e17]: Alex Rivera
+        - generic [ref=e18]: Primary • Level 4
+    - navigation [ref=e19]:
+      - button "Home" [ref=e20] [cursor=pointer]
+      - button "Dream Paths" [ref=e25] [cursor=pointer]
+      - button "Achievements 3" [ref=e30] [cursor=pointer]:
+        - generic [ref=e34]: Achievements
+        - generic [ref=e35]: "3"
+      - button "Parent Space" [ref=e36] [cursor=pointer]
+      - button "Profile" [ref=e40] [cursor=pointer]
+    - generic [ref=e45]:
+      - generic [ref=e49]:
+        - strong [ref=e50]: Safe to explore
+        - generic [ref=e51]: Parent supervised
+      - button "Settings" [ref=e52] [cursor=pointer]
+  - main [ref=e57]:
+    - generic [ref=e58]:
+      - generic [ref=e59]:
+        - generic [ref=e60]: YOUR DREAM DASHBOARD
+        - strong [ref=e61]: Good evening, Alex
+      - generic [ref=e62]:
+        - generic [ref=e63]:
+          - strong [ref=e66]: "7"
+          - generic [ref=e67]: day streak
+        - button "Toggle color mode" [ref=e68] [cursor=pointer]
+        - button "A" [ref=e72] [cursor=pointer]
+    - generic [ref=e73]:
+      - generic [ref=e74]:
+        - generic [ref=e75]:
+          - generic [ref=e76]: YOUR NEXT ADVENTURE
+          - heading [level=1] [ref=e79]:
+            - text: Every dream startswith a
+            - emphasis [ref=e80]: small step.
+          - paragraph [ref=e81]: Explore real-world careers through playful missions made just for your level.
+          - button "Continue your journey" [ref=e82] [cursor=pointer]
+        - generic [aria-hidden] [ref=e85]:
+          - generic [ref=e98]: ✦
+          - generic [ref=e99]: ·
+      - generic [ref=e100]:
+        - article [ref=e101]:
+          - generic [ref=e105]:
+            - generic [ref=e106]: TOTAL XP
+            - strong [ref=e107]: 1,280
+          - generic [ref=e108]: +120 this week
+        - article [ref=e109]:
+          - generic [ref=e114]:
+            - generic [ref=e115]: MISSIONS DONE
+            - strong [ref=e116]: "24"
+          - generic [ref=e117]: Top 18%
+        - article [ref=e118]:
+          - generic [ref=e123]:
+            - generic [ref=e124]: LEARNING TIME
+            - strong [ref=e125]: 4h 32m
+          - generic [ref=e126]: Healthy pace
+      - generic [ref=e127]:
+        - generic [ref=e128]:
+          - text: CHOOSE YOUR JOURNEY
+          - heading "Explore dream paths" [level=2] [ref=e129]
+        - button "View all paths" [ref=e130] [cursor=pointer]
+      - generic [ref=e133]:
+        - article [ref=e134] [cursor=pointer]:
+          - generic [ref=e135]: Stage 3 of 8
+          - heading "Software Engineer" [level=3] [ref=e140]
+          - paragraph [ref=e141]: Build a friendly study app
+          - generic [ref=e142]:
+            - generic [ref=e143]: Path progress
+            - strong [ref=e144]: 38%
+          - button "Continue mission" [ref=e147]
+        - article [ref=e150] [cursor=pointer]:
+          - generic [ref=e151]: Stage 1 of 8
+          - heading "Junior Lawyer" [level=3] [ref=e157]
+          - paragraph [ref=e158]: Solve a fair playground case
+          - generic [ref=e159]:
+            - generic [ref=e160]: Path progress
+            - strong [ref=e161]: 12%
+          - button "Explore path" [ref=e164]
+        - article [ref=e167] [cursor=pointer]:
+          - generic [ref=e168]: Stage 2 of 8
+          - heading "Future Doctor" [level=3] [ref=e174]
+          - paragraph [ref=e175]: Help a patient feel better
+          - generic [ref=e176]:
+            - generic [ref=e177]: Path progress
+            - strong [ref=e178]: 25%
+          - button "Explore path" [ref=e181]
+      - generic [ref=e184]:
+        - article [ref=e185]:
+          - generic [ref=e186]: MISSION 08
+          - generic [ref=e194]:
+            - generic [ref=e195]: TODAY'S DAILY QUEST
+            - heading "Fix the missing button" [level=2] [ref=e196]
+            - paragraph [ref=e197]: A small part of the school website disappeared. Use your logic to bring it back.
+            - generic [ref=e198]:
+              - generic [ref=e199]: 10 min
+              - generic [ref=e203]: +80 XP
+              - generic [ref=e206]: Beginner
+            - button "Start mission" [ref=e207] [cursor=pointer]
+        - complementary [ref=e210]:
+          - generic [ref=e211]:
+            - generic [ref=e215]:
+              - text: PARENT SPACE
+              - heading "Healthy progress" [level=3] [ref=e216]
+            - button "Open parent dashboard" [ref=e217] [cursor=pointer]
+          - generic [ref=e220]:
+            - generic [ref=e222]:
+              - text: "38"
+              - generic [ref=e223]: min
+            - generic [ref=e224]:
+              - generic [ref=e225]: TODAY'S SCREEN TIME
+              - strong [ref=e226]: 38 of 60 minutes
+              - paragraph [ref=e227]: 22 minutes remaining
+          - generic [ref=e232]:
+            - generic [ref=e233]: TOP INTEREST THIS WEEK
+            - strong [ref=e234]: Technology & problem solving
+          - button "View supervision dashboard" [ref=e235] [cursor=pointer]
