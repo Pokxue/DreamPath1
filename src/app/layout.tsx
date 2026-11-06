@@ -25,7 +25,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className="dark">
-      <body className={`${geistSans.variable} ${geistMono.variable} antialiased bg-custom-body text-slate-100 min-h-screen`}>
+      <body className={`${geistSans.variable} ${geistMono.variable} antialiased bg-[#0B0C15] text-white min-h-screen selection:bg-indigo-500 selection:text-white`}>
         <AppShell>{children}</AppShell>
       </body>
     </html>

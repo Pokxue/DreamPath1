@@ -1,140 +1,271 @@
 'use client';
 
-import React from 'react';
+import React, { useState } from 'react';
 import {
-  ShieldCheck,
-  Scale,
   HeartPulse,
   Code2,
   Flame,
   Compass,
   Lock,
-  Download,
-  Sparkles
+  Sparkles,
+  Star,
+  Trophy,
+  Sun,
+  Moon,
+  Footprints,
+  Rocket
 } from 'lucide-react';
 import { useProgressionStore } from '@/stores/useProgressionStore';
-import { EDUCATION_TIERS } from '@/types/career';
 
 export default function AchievementsPage() {
-  const { profile, achievements, totalXp } = useProgressionStore();
-  const tier = EDUCATION_TIERS[profile.educationTier] || EDUCATION_TIERS.aurora;
-
-  const getIcon = (iconName: string) => {
-    switch (iconName) {
-      case 'ShieldCheck':
-        return ShieldCheck;
-      case 'Scale':
-        return Scale;
-      case 'HeartPulse':
-        return HeartPulse;
-      case 'Code2':
-        return Code2;
-      case 'Flame':
-        return Flame;
-      case 'Compass':
-        return Compass;
-      default:
-        return Sparkles;
-    }
-  };
-
-  const handlePrintCertificate = () => {
-    window.print();
-  };
+  const { profile, totalXp } = useProgressionStore();
+  
+  const [isDarkMode, setIsDarkMode] = useState(true);
 
   return (
-    <div className="space-y-8 max-w-5xl mx-auto">
-      {/* Header */}
-      <div>
-        <div className="text-xs font-bold uppercase tracking-wider text-indigo-400">
-          YOUR COLLECTION
-        </div>
-        <h1 className="text-3xl font-extrabold text-white tracking-tight mt-1">
-          Recent achievements
-        </h1>
-        <p className="mt-2 text-slate-300 text-sm max-w-2xl leading-relaxed">
-          Badges recognize mastery of ethical choices, algorithmic reasoning, and medical triage.
-        </p>
-      </div>
-
-      {/* Badges Grid matching Figma design */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-        {achievements.map((item) => {
-          const Icon = getIcon(item.icon);
-          return (
-            <div
-              key={item.id}
-              className={`p-6 rounded-3xl border transition-all flex flex-col justify-between ${
-                item.unlocked
-                  ? 'bg-[#0e1224] border-[#1e233d] hover:border-indigo-500/50'
-                  : 'bg-[#0a0d1b]/60 border-[#151930] opacity-60'
-              }`}
-            >
-              <div>
-                <div className="flex items-center justify-between mb-4">
-                  <div
-                    className={`w-12 h-12 rounded-2xl flex items-center justify-center ${
-                      item.unlocked
-                        ? 'bg-indigo-600/20 text-indigo-300 border border-indigo-500/40'
-                        : 'bg-slate-800 text-slate-500'
-                    }`}
-                  >
-                    {item.unlocked ? <Icon className="w-6 h-6" /> : <Lock className="w-5 h-5" />}
-                  </div>
-                  <span
-                    className={`text-[10px] font-extrabold uppercase px-2 py-0.5 rounded-full border ${
-                      item.unlocked
-                        ? 'bg-amber-500/10 text-amber-300 border-amber-500/30'
-                        : 'bg-slate-800 text-slate-500 border-slate-700'
-                    }`}
-                  >
-                    {item.tier}
-                  </span>
-                </div>
-
-                <h3 className="text-lg font-bold text-white">{item.title}</h3>
-                <p className="mt-1 text-xs text-slate-400 leading-relaxed">{item.desc}</p>
-              </div>
-
-              <div className="mt-6 pt-4 border-t border-[#1b203c] flex items-center justify-between text-xs">
-                <span className="text-slate-500">Status</span>
-                <span
-                  className={`font-semibold ${
-                    item.unlocked ? 'text-emerald-400' : 'text-slate-500'
-                  }`}
-                >
-                  {item.unlocked ? `Unlocked • ${item.unlockedAt || 'Recent'}` : 'Locked'}
-                </span>
-              </div>
-            </div>
-          );
-        })}
-      </div>
-
-      {/* Verifiable Certificate Generator Section */}
-      <div className="p-8 rounded-3xl bg-gradient-to-r from-[#121630] via-[#161c40] to-[#121630] border border-indigo-500/30 flex flex-col sm:flex-row items-center justify-between gap-6 shadow-xl">
-        <div className="space-y-2 text-center sm:text-left">
-          <div className="text-xs font-extrabold uppercase tracking-widest text-indigo-400">
-            OFFICIAL ACCREDITATION
+    <div className="min-h-screen bg-[#0D0E1A] text-white font-sans p-6 md:p-10">
+      
+      <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-12 gap-4">
+        <div>
+          <div className="text-[10px] font-bold uppercase tracking-wider text-indigo-400 mb-1">
+            YOUR DREAM DASHBOARD
           </div>
-          <h2 className="text-2xl font-black text-white">
-            {tier.name} Pathfinder Certificate
-          </h2>
-          <p className="text-sm text-slate-300 max-w-xl">
-            Issued to <span className="font-bold text-white">{profile.name}</span> for completing{' '}
-            {profile.missionsCompleted} career exploration missions with {totalXp.toLocaleString()} XP.
+          <div className="text-xl font-semibold">
+            Good evening, {profile?.name || 'Alex'}
+          </div>
+        </div>
+        <div className="flex items-center gap-4">
+          <div className="flex bg-[#16172B] rounded-full p-1 border border-white/5">
+            <button className="bg-[#8B5CF6] text-white px-5 py-1.5 rounded-full text-xs font-bold shadow-md">
+              English
+            </button>
+            <button className="text-slate-400 hover:text-slate-300 px-5 py-1.5 rounded-full text-xs font-bold transition-colors">
+              Bahasa Melayu
+            </button>
+          </div>
+          <div className="text-xs font-medium text-slate-300 flex items-center gap-1.5">
+            <span className="text-orange-400 font-bold flex items-center gap-1">
+              <Flame className="w-3.5 h-3.5 fill-current" /> 7
+            </span> 
+            day streak
+          </div>
+          <button 
+            onClick={() => setIsDarkMode(!isDarkMode)}
+            className="w-9 h-9 rounded-full bg-[#16172B] flex items-center justify-center text-slate-400 hover:text-white border border-white/5 transition-colors"
+          >
+            {isDarkMode ? <Sun className="w-4 h-4" /> : <Moon className="w-4 h-4" />}
+          </button>
+          <div className="w-9 h-9 rounded-full bg-orange-900/40 text-orange-300 flex items-center justify-center font-bold text-sm border border-orange-500/20">
+            A
+          </div>
+        </div>
+      </div>
+
+      <div className="max-w-5xl mx-auto space-y-8">
+        
+        <div>
+          <div className="text-[10px] font-bold uppercase tracking-widest text-indigo-400 mb-2">
+            EVERY STEP COUNTS
+          </div>
+          <h1 className="text-3xl md:text-4xl font-bold tracking-tight mb-3">
+            Achievements
+          </h1>
+          <p className="text-slate-400 text-sm">
+            Look how far you've come, {profile?.name || 'Alex'}. Your curiosity is turning into something great.
           </p>
         </div>
 
-        <button
-          onClick={handlePrintCertificate}
-          className="px-6 py-3 rounded-2xl bg-indigo-600 hover:bg-indigo-500 text-white font-bold text-xs shadow-lg shadow-indigo-600/30 transition-all flex items-center gap-2 hover:scale-105 active:scale-95 shrink-0"
-        >
-          <Download className="w-4 h-4" />
-          <span>Export Certificate</span>
-        </button>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div className="bg-[#16172B] p-6 rounded-2xl border border-white/5 flex items-start gap-4">
+            <div className="w-12 h-12 shrink-0 rounded-full bg-indigo-500/10 flex items-center justify-center text-indigo-400 border border-indigo-500/20">
+              <Star className="w-5 h-5" />
+            </div>
+            <div>
+              <div className="text-[10px] font-bold uppercase text-slate-500 tracking-widest mb-1">Total XP</div>
+              <div className="text-2xl font-bold mb-1">{totalXp ? totalXp.toLocaleString() : '1,280'}</div>
+              <div className="text-xs text-indigo-400 font-medium">+120 this week</div>
+            </div>
+          </div>
+
+          <div className="bg-[#16172B] p-6 rounded-2xl border border-white/5 flex items-start gap-4">
+            <div className="w-12 h-12 shrink-0 rounded-full bg-amber-500/10 flex items-center justify-center text-amber-500 border border-amber-500/20">
+              <Trophy className="w-5 h-5" />
+            </div>
+            <div>
+              <div className="text-[10px] font-bold uppercase text-slate-500 tracking-widest mb-1">Missions Done</div>
+              <div className="text-2xl font-bold mb-1">24</div>
+              <div className="text-xs text-amber-500 font-medium">Top 18%</div>
+            </div>
+          </div>
+
+          <div className="bg-[#16172B] p-6 rounded-2xl border border-white/5 flex items-start gap-4">
+            <div className="w-12 h-12 shrink-0 rounded-full bg-orange-500/10 flex items-center justify-center text-orange-400 border border-orange-500/20">
+              <Flame className="w-5 h-5" />
+            </div>
+            <div>
+              <div className="text-[10px] font-bold uppercase text-slate-500 tracking-widest mb-1">Current Streak</div>
+              <div className="text-2xl font-bold mb-1">7 days</div>
+              <div className="text-xs text-orange-400 font-medium">A little learning, every day</div>
+            </div>
+          </div>
+        </div>
+
+        <div className="bg-[#16172B] p-6 md:p-8 rounded-3xl border border-white/5 flex flex-col md:flex-row items-center gap-6 md:gap-8">
+          <div className="w-24 h-24 shrink-0 rounded-full border-4 border-[#8B5CF6] flex flex-col items-center justify-center bg-[#16172B] shadow-[0_0_25px_rgba(139,92,246,0.15)] relative">
+            <span className="text-[10px] text-slate-400 font-bold -mb-1 mt-1">LEVEL</span>
+            <span className="text-4xl font-black text-white">4</span>
+          </div>
+          
+          <div className="flex-1 w-full">
+            <div className="flex flex-col md:flex-row md:items-center justify-between mb-2 gap-2">
+              <h2 className="text-xl md:text-2xl font-bold text-white">Growing dreamer</h2>
+              <span className="text-[10px] font-bold uppercase px-3 py-1 rounded-full bg-indigo-500/10 text-indigo-300 border border-indigo-500/20 w-max">
+                Primary
+              </span>
+            </div>
+            <p className="text-sm text-slate-400 mb-6">
+              Every mission brings a new possibility. Just 320 XP to Level 5!
+            </p>
+            <div className="h-2 w-full bg-[#0D0E1A] rounded-full overflow-hidden mb-2">
+              <div className="h-full bg-gradient-to-r from-[#6D28D9] to-[#8B5CF6] w-[80%] rounded-full shadow-[0_0_10px_rgba(139,92,246,0.5)]"></div>
+            </div>
+            <div className="flex justify-between text-[10px] text-slate-500 font-medium">
+              <span>1,280 XP</span>
+              <span>1,600 XP - Level 5</span>
+            </div>
+          </div>
+        </div>
+
+        <div className="pt-4">
+          <div className="flex items-center justify-between mb-6">
+            <h2 className="text-xl font-bold text-white">Your badge collection</h2>
+            <div className="flex gap-3">
+               <div className="text-[10px] font-bold text-indigo-300 bg-indigo-500/10 border border-indigo-500/20 px-3 py-1.5 rounded-full">
+                  All badges - 6
+               </div>
+               <div className="text-[10px] font-bold text-emerald-400 bg-emerald-500/10 border border-emerald-500/20 px-3 py-1.5 rounded-full">
+                  Unlocked - 3
+               </div>
+            </div>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+             <div className="bg-[#16172B] p-8 rounded-3xl border border-white/5 flex flex-col items-center text-center justify-center gap-3 hover:border-indigo-500/40 transition-colors">
+                <div className="w-14 h-14 rounded-full bg-indigo-500/10 text-indigo-400 flex items-center justify-center border border-indigo-500/20 mb-1">
+                   <Footprints className="w-6 h-6" />
+                </div>
+                <div>
+                   <h3 className="text-sm font-bold text-white mb-1.5">First small step</h3>
+                   <p className="text-xs text-slate-400">Complete your very first mission.</p>
+                </div>
+                <div className="text-[10px] font-bold text-[#34D399] border border-[#34D399]/30 bg-[#34D399]/10 px-3 py-1 rounded-full mt-2">
+                   Unlocked
+                </div>
+             </div>
+
+             <div className="bg-[#16172B] p-8 rounded-3xl border border-white/5 flex flex-col items-center text-center justify-center gap-3 hover:border-orange-500/40 transition-colors">
+                <div className="w-14 h-14 rounded-full bg-orange-500/10 text-orange-400 flex items-center justify-center border border-orange-500/20 mb-1">
+                   <Flame className="w-6 h-6" />
+                </div>
+                <div>
+                   <h3 className="text-sm font-bold text-white mb-1.5">Week of wonder</h3>
+                   <p className="text-xs text-slate-400">Keep a 7-day learning streak.</p>
+                </div>
+                <div className="text-[10px] font-bold text-[#34D399] border border-[#34D399]/30 bg-[#34D399]/10 px-3 py-1 rounded-full mt-2">
+                   Unlocked
+                </div>
+             </div>
+
+             <div className="bg-[#16172B] p-8 rounded-3xl border border-white/5 flex flex-col items-center text-center justify-center gap-3 hover:border-emerald-500/40 transition-colors">
+                <div className="w-14 h-14 rounded-full bg-emerald-500/10 text-emerald-400 flex items-center justify-center border border-emerald-500/20 mb-1">
+                   <Compass className="w-6 h-6" />
+                </div>
+                <div>
+                   <h3 className="text-sm font-bold text-white mb-1.5">Curious explorer</h3>
+                   <p className="text-xs text-slate-400">Explore 3 different dream paths.</p>
+                </div>
+                <div className="text-[10px] font-bold text-[#34D399] border border-[#34D399]/30 bg-[#34D399]/10 px-3 py-1 rounded-full mt-2">
+                   Unlocked
+                </div>
+             </div>
+             
+             <div className="bg-[#16172B]/50 p-8 rounded-3xl border border-transparent flex flex-col items-center text-center justify-center gap-3">
+                <div className="w-14 h-14 rounded-full bg-[#21233E] text-slate-500 flex items-center justify-center mb-1">
+                   <Rocket className="w-6 h-6" /> 
+                </div>
+                <div>
+                   <h3 className="text-sm font-bold text-slate-300 mb-1.5">Mission maker</h3>
+                   <p className="text-xs text-slate-500">Complete 30 playful missions.</p>
+                </div>
+                <div className="text-xs font-bold text-slate-500 mt-2 flex items-center gap-1.5">
+                   <Lock className="w-3.5 h-3.5" /> 24 / 30 missions
+                </div>
+             </div>
+             
+             <div className="bg-[#16172B]/50 p-8 rounded-3xl border border-transparent flex flex-col items-center text-center justify-center gap-3">
+                <div className="w-14 h-14 rounded-full bg-[#21233E] text-slate-500 flex items-center justify-center mb-1">
+                   <Code2 className="w-6 h-6" /> 
+                </div>
+                <div>
+                   <h3 className="text-sm font-bold text-slate-300 mb-1.5">Code creator</h3>
+                   <p className="text-xs text-slate-500">Finish your Software Engineer path.</p>
+                </div>
+                <div className="text-xs font-bold text-slate-500 mt-2 flex items-center gap-1.5">
+                   <Lock className="w-3.5 h-3.5" /> 38% of path completed
+                </div>
+             </div>
+             
+             <div className="bg-[#16172B]/50 p-8 rounded-3xl border border-transparent flex flex-col items-center text-center justify-center gap-3">
+                <div className="w-14 h-14 rounded-full bg-[#21233E] text-slate-500 flex items-center justify-center mb-1">
+                   <Sparkles className="w-6 h-6" /> 
+                </div>
+                <div>
+                   <h3 className="text-sm font-bold text-slate-300 mb-1.5">Two weeks strong</h3>
+                   <p className="text-xs text-slate-500">Build a 14-day learning streak.</p>
+                </div>
+                <div className="text-xs font-bold text-slate-500 mt-2 flex items-center gap-1.5">
+                   <Lock className="w-3.5 h-3.5" /> 7 / 14 days
+                </div>
+             </div>
+          </div>
+        </div>
+
+        <div className="bg-[#16172B] p-8 rounded-3xl border border-white/5 mt-6">
+           <div className="flex items-center justify-between mb-6">
+              <h2 className="text-lg font-bold text-white">Little wins, big feelings</h2>
+              <span className="text-[11px] text-slate-400">Recent milestones</span>
+           </div>
+           
+           <div className="space-y-3">
+              <div className="flex items-center justify-between p-4 rounded-2xl bg-[#0D0E1A]/40 border border-white/5">
+                 <div className="flex items-center gap-4">
+                    <div className="w-10 h-10 shrink-0 rounded-full bg-orange-500/10 text-orange-400 flex items-center justify-center border border-orange-500/20">
+                       <Flame className="w-5 h-5 fill-current" />
+                    </div>
+                    <div>
+                       <h4 className="text-sm font-bold text-white mb-0.5">A whole week of wonder!</h4>
+                       <p className="text-xs text-slate-400">You showed up for 7 days in a row.</p>
+                    </div>
+                 </div>
+                 <span className="text-[11px] text-slate-500 font-medium">Today</span>
+              </div>
+              
+              <div className="flex items-center justify-between p-4 rounded-2xl bg-[#0D0E1A]/40 border border-white/5">
+                 <div className="flex items-center gap-4">
+                    <div className="w-10 h-10 shrink-0 rounded-full bg-emerald-500/10 text-emerald-400 flex items-center justify-center border border-emerald-500/20">
+                       <Compass className="w-5 h-5" />
+                    </div>
+                    <div>
+                       <h4 className="text-sm font-bold text-white mb-0.5">Your curiosity crossed new paths</h4>
+                       <p className="text-xs text-slate-400">Software Engineer, Junior Lawyer & Future Doctor.</p>
+                    </div>
+                 </div>
+                 <span className="text-[11px] text-slate-500 font-medium">This week</span>
+              </div>
+           </div>
+        </div>
+
       </div>
     </div>
   );
 }
-
