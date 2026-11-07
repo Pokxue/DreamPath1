@@ -7,7 +7,6 @@ import {
   Home,
   Compass,
   Trophy,
-  Users,
   User,
   Settings,
   ShieldCheck,
@@ -30,7 +29,6 @@ export function Sidebar() {
     { label: 'Learning Modes', href: '/modes', icon: PlayCircle },
     { label: 'Top Dreamers', href: '/leaderboard', icon: Trophy, badge: 'Top 18%' },
     { label: 'Achievements', href: '/achievements', icon: Sparkles, count: '3' },
-    { label: 'Parent Space', href: '/parent', icon: Users },
     { label: 'Profile', href: '/profile', icon: User },
   ];
 
@@ -111,12 +109,6 @@ export function Sidebar() {
               <div className="text-[11px] text-slate-400">Parent supervised</div>
             </div>
           </div>
-          <Link
-            href="/parent"
-            className="text-xs text-indigo-400 hover:text-indigo-300 font-semibold underline underline-offset-2"
-          >
-            Review
-          </Link>
         </div>
 
         <Link

@@ -19,7 +19,7 @@ import { STUDY_DATABASE } from '@/data/studies';
 import { speakText, playSound } from '@/utils/sound';
 
 export default function ModesHubPage() {
-  const { profile, applyReward, applySkillImpacts } = useProgressionStore();
+  const { profile, applyReward, applySkillImpacts, setActiveCareer } = useProgressionStore();
   const [activeTab, setActiveTab] = useState<'hub' | 'quiz' | 'study'>('hub');
   
   // Quiz state
@@ -178,11 +178,15 @@ export default function ModesHubPage() {
               </span>
               <h3 className="text-xl font-bold text-white mt-1">Simulation Mode</h3>
               <p className="mt-2 text-sm text-slate-400 leading-relaxed">
-                Branching incident trees, NPC mentor guidance, and real consequences affecting career salary and skill milestones.
+                Step into a courtroom case, weigh witness testimony against records, and practice making evidence-based objections.
               </p>
             </div>
             <Link
-              href={`/simulation?career=${activeCareer.id}`}
+              href="/simulation?career=junior-lawyer"
+              onClick={() => {
+                setActiveCareer('junior-lawyer');
+                playSound('click');
+              }}
               className="mt-6 w-full py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-bold text-xs shadow-md transition-all flex items-center justify-center gap-2"
             >
               <span>Launch live simulation</span>

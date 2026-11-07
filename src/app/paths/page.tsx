@@ -77,11 +77,14 @@ export default function DreamPathsPage() {
 
           <div className="mt-6 flex flex-wrap gap-4 items-center">
             <Link
-              href={`/simulation?career=${profile.activeCareerId || 'software-engineer'}`}
-              onClick={() => playSound('click')}
+              href={`/paths/mission?career=software-engineer`}
+              onClick={() => {
+                setActiveCareer('software-engineer');
+                playSound('click');
+              }}
               className="inline-flex items-center gap-2.5 px-8 py-3.5 rounded-full bg-gradient-to-r from-[#8B5CF6] to-[#6D28D9] hover:opacity-90 text-white font-bold text-sm shadow-xl shadow-purple-900/40 transition-all hover:scale-105 active:scale-95"
             >
-              <span>Continue your journey</span>
+              <span>Continue Mission</span>
               <ArrowRight className="w-4 h-4" />
             </Link>
 
@@ -187,7 +190,11 @@ export default function DreamPathsPage() {
 
               <div className="mt-6 pt-4 border-t border-[#2E3254]/50 flex items-center justify-end">
                 <Link
-                  href={`/simulation?career=${career.id}`}
+                  href={`/paths/mission?career=${career.id}`}
+                  onClick={() => {
+                    setActiveCareer(career.id);
+                    playSound('click');
+                  }}
                   className={`px-4 py-2 rounded-full text-xs font-bold transition-all ${
                     isCurrent
                       ? 'bg-gradient-to-r from-[#8B5CF6] to-[#6D28D9] text-white shadow-md'
