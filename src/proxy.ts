@@ -2,7 +2,6 @@ import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
 
 const protectedRoutes = [
-  '/',
   '/paths',
   '/home',
   '/achievements',
@@ -12,9 +11,8 @@ const protectedRoutes = [
   '/settings',
   '/parent',
   '/simulation',
+  '/onboarding',
 ];
-
-const publicAuthRoutes = ['/auth/signin', '/auth/signup'];
 
 function isUnderRoute(pathname: string, route: string) {
   return pathname === route || pathname.startsWith(`${route}/`);
@@ -25,7 +23,7 @@ export function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl;
 
   const isProtectedRoute = protectedRoutes.some((route) => isUnderRoute(pathname, route));
-  const isPublicAuthRoute = publicAuthRoutes.some((route) => isUnderRoute(pathname, route));
+  const isOnboardingRoute = isUnderRoute(pathname, '/onboarding');
 
   // Allow static files and API routes
   if (
@@ -40,14 +38,13 @@ export function proxy(request: NextRequest) {
   const sessionCookie = request.cookies.get('dreampath-auth')?.value;
   const hasValidSessionId = Boolean(sessionCookie && /^[1-9]\d*$/.test(sessionCookie));
 
-  if (isPublicAuthRoute && hasValidSessionId) {
-    return NextResponse.redirect(new URL('/', request.url));
+  if ((isProtectedRoute || isOnboardingRoute) && !hasValidSessionId) {
+    const signInUrl = new URL('/auth/signin', request.url);
+    return NextResponse.redirect(signInUrl);
   }
 
-  if (isProtectedRoute && !hasValidSessionId) {
-    const signInUrl = new URL('/auth/signin', request.url);
-    signInUrl.searchParams.set('callbackUrl', pathname);
-    return NextResponse.redirect(signInUrl);
+  if (pathname === '/auth/signin' && hasValidSessionId) {
+    return NextResponse.redirect(new URL('/onboarding/education', request.url));
   }
 
   return NextResponse.next();

@@ -14,6 +14,7 @@ type AuthUser = UserProfile & {
   skills: Record<string, { xp: number; competency: number }>;
   achievements: Array<{ id: string; title: string; desc: string; unlocked: boolean; icon: string; tier: string; unlockedAt?: string }>;
   careerProgress: Record<string, number>;
+  dreamJobId: string | null;
 };
 
 interface AuthContextType {
@@ -22,6 +23,7 @@ interface AuthContextType {
   isAuthenticated: boolean;
   signIn: (email: string, password: string) => Promise<{ success: boolean; error?: string }>;
   signOut: () => Promise<void>;
+  refreshUser: () => Promise<void>;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -68,7 +70,15 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
             const sameAccount = cachedUser?.id === sessionUser.id && cachedUser?.email === sessionUser.email;
             // Restore local progress only when the cache belongs to this verified session.
             if (sameAccount) {
-              userData = { ...sessionUser, ...cachedUser, id: sessionUser.id, email: sessionUser.email };
+              // Keep profile selections aligned with server data; other progress remains locally cached.
+              userData = {
+                ...sessionUser,
+                ...cachedUser,
+                id: sessionUser.id,
+                email: sessionUser.email,
+                dreamJobId: sessionUser.dreamJobId,
+                educationTier: sessionUser.educationTier,
+              };
             }
           } catch {
             localStorage.removeItem('dreampath-current-user');
@@ -88,6 +98,16 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     };
 
     checkAuth();
+  }, [updateProfile, setColorMode, setEducationTier]);
+
+  const refreshUser = useCallback(async () => {
+    const response = await fetch('/api/auth/session', { cache: 'no-store' });
+    if (!response.ok) throw new Error('Could not refresh your account details.');
+    const { user: freshUser } = await response.json();
+    if (!freshUser) throw new Error('Your session has expired. Please sign in again.');
+    setUser(freshUser);
+    applyUserToStore(freshUser, updateProfile, setColorMode, setEducationTier);
+    localStorage.setItem('dreampath-current-user', JSON.stringify(freshUser));
   }, [updateProfile, setColorMode, setEducationTier]);
 
   const signIn = useCallback(async (email: string, password: string) => {
@@ -128,13 +148,13 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       playSound('click');
       setUser(null);
       localStorage.removeItem('dreampath-current-user');
-      router.replace('/auth/signin');
+      router.replace('/');
       router.refresh();
     }
   }, [router]);
 
   return (
-    <AuthContext.Provider value={{ user, isLoading, isAuthenticated: !!user, signIn, signOut }}>
+    <AuthContext.Provider value={{ user, isLoading, isAuthenticated: !!user, signIn, signOut, refreshUser }}>
       {children}
     </AuthContext.Provider>
   );

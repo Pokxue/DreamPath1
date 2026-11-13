@@ -49,7 +49,7 @@ export function Sidebar() {
   }, []);
 
   const navLinks = [
-    { label: 'Home', href: '/', icon: Home },
+    { label: 'Home', href: '/home', icon: Home },
     { label: 'Dream Paths', href: '/paths', icon: Compass },
     { label: 'Learning Modes', href: '/modes', icon: PlayCircle },
     { label: 'Top Dreamers', href: '/leaderboard', icon: Trophy, badge: 'Top 18%' },

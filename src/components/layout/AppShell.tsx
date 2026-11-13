@@ -12,12 +12,13 @@ export function AppShell({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
   const isLight = profile.colorMode === 'light';
 
-  if (pathname.startsWith('/auth/')) {
+  if (pathname === '/' || pathname.startsWith('/auth/') || pathname.startsWith('/onboarding')) {
     return <div className="min-h-screen">{children}</div>;
   }
 
   return (
     <div className={`min-h-screen flex ${isLight ? 'bg-slate-100 text-slate-900' : 'bg-[#080a14] text-slate-100'}`}>
+
       <div className="hidden md:block">
         <Sidebar />
       </div>

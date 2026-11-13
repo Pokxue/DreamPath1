@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState, Suspense } from 'react';
-import { useRouter, useSearchParams } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import {
   Mail,
@@ -19,10 +19,6 @@ import { useAuth } from '@/contexts/AuthContext';
 function SignInPageContent() {
   const router = useRouter();
   const { signIn } = useAuth();
-  const searchParams = useSearchParams();
-  const requestedCallback = searchParams.get('callbackUrl') || '/';
-  const callbackUrl = requestedCallback.startsWith('/') && !requestedCallback.startsWith('//') ? requestedCallback : '/';
-
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
@@ -43,7 +39,7 @@ function SignInPageContent() {
         return;
       }
 
-      router.replace(callbackUrl);
+      router.replace('/onboarding/education');
       router.refresh();
     } catch (err) {
       console.error('Signin error:', err);

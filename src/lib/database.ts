@@ -36,6 +36,7 @@ function initializeSchema(db: Database.Database) {
       joined_date TEXT,
       current_level INTEGER DEFAULT 1,
       education_tier TEXT DEFAULT 'aurora',
+      dream_job_id TEXT,
       active_career_id TEXT DEFAULT 'software-engineer',
       screen_time_used_minutes INTEGER DEFAULT 0,
       screen_time_max_minutes INTEGER DEFAULT 60,
@@ -52,6 +53,12 @@ function initializeSchema(db: Database.Database) {
       updated_at TEXT DEFAULT CURRENT_TIMESTAMP
     )
   `);
+
+  // Migrate databases created before career selection was added.
+  const userColumns = db.prepare('PRAGMA table_info(users)').all() as Array<{ name: string }>;
+  if (!userColumns.some((column) => column.name === 'dream_job_id')) {
+    db.exec('ALTER TABLE users ADD COLUMN dream_job_id TEXT');
+  }
 
   // Create user_progress table for XP, skills, etc.
   db.exec(`
@@ -261,6 +268,7 @@ export interface UserWithProgress {
   joinedDate: string;
   currentLevel: number;
   educationTier: string;
+  dreamJobId: string | null;
   activeCareerId: string;
   screenTimeUsedMinutes: number;
   screenTimeMaxMinutes: number;
@@ -301,6 +309,7 @@ interface UserRow {
   joined_date: string;
   current_level: number;
   education_tier: string;
+  dream_job_id: string | null;
   active_career_id: string;
   screen_time_used_minutes: number;
   screen_time_max_minutes: number;
@@ -354,6 +363,7 @@ function mapUserWithProgress(db: Database.Database, user: UserRow): UserWithProg
     joinedDate: user.joined_date,
     currentLevel: user.current_level,
     educationTier: user.education_tier,
+    dreamJobId: user.dream_job_id,
     activeCareerId: user.active_career_id,
     screenTimeUsedMinutes: user.screen_time_used_minutes,
     screenTimeMaxMinutes: user.screen_time_max_minutes,
@@ -451,6 +461,7 @@ export function updateUserProfile(userId: number, profile: Partial<UserWithProgr
     streakDays: 'streak_days',
     missionsCompleted: 'missions_completed',
     learningTimeMinutes: 'learning_time_minutes',
+    dreamJobId: 'dream_job_id',
   };
 
   for (const [key, dbField] of Object.entries(fieldMap)) {
@@ -469,6 +480,24 @@ export function updateUserProfile(userId: number, profile: Partial<UserWithProgr
 
   values.push(userId);
   db.prepare(`UPDATE users SET ${fields.join(', ')}, updated_at = CURRENT_TIMESTAMP WHERE id = ?`).run(...values);
+}
+
+export function saveUserSelections(
+  userId: number,
+  educationTier: string,
+  dreamJobId: string,
+): UserWithProgress | null {
+  const db = getDb();
+  const complete = db.transaction(() => {
+    db.prepare(`
+      UPDATE users
+      SET education_tier = ?, dream_job_id = ?, active_career_id = ?,
+          updated_at = CURRENT_TIMESTAMP
+      WHERE id = ?
+    `).run(educationTier, dreamJobId, dreamJobId, userId);
+    return getUserById(userId);
+  });
+  return complete();
 }
 
 export function closeDb(): void {

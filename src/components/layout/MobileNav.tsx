@@ -9,7 +9,7 @@ export function MobileNav() {
   const pathname = usePathname();
 
   const navItems = [
-    { label: 'Home', href: '/', icon: Home },
+    { label: 'Home', href: '/home', icon: Home },
     { label: 'Paths', href: '/paths', icon: Compass },
     { label: 'Leaderboard', href: '/leaderboard', icon: Trophy },
     { label: 'Badges', href: '/achievements', icon: Sparkles },
