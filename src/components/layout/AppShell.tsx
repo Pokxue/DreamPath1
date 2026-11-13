@@ -1,6 +1,7 @@
 'use client';
 
 import React from 'react';
+import { usePathname } from 'next/navigation';
 import { Sidebar } from '@/components/layout/Sidebar';
 import { Header } from '@/components/layout/Header';
 import { MobileNav } from '@/components/layout/MobileNav';
@@ -8,7 +9,12 @@ import { useProgressionStore } from '@/stores/useProgressionStore';
 
 export function AppShell({ children }: { children: React.ReactNode }) {
   const { profile } = useProgressionStore();
+  const pathname = usePathname();
   const isLight = profile.colorMode === 'light';
+
+  if (pathname.startsWith('/auth/')) {
+    return <div className="min-h-screen">{children}</div>;
+  }
 
   return (
     <div className={`min-h-screen flex ${isLight ? 'bg-slate-100 text-slate-900' : 'bg-[#080a14] text-slate-100'}`}>

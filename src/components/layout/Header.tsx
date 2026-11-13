@@ -3,12 +3,14 @@
 import React from 'react';
 import Link from 'next/link';
 import { useProgressionStore } from '@/stores/useProgressionStore';
-import { Moon, Sun, Flame, Volume2, VolumeX, Sparkles } from 'lucide-react';
+import { useAuth } from '@/contexts/AuthContext';
+import { Moon, Sun, Flame, Volume2, VolumeX, Sparkles, LogOut } from 'lucide-react';
 import { EDUCATION_TIERS } from '@/types/career';
 import { speakText, stopSpeaking } from '@/utils/sound';
 
 export function Header() {
   const { profile, toggleColorMode, setSettings, totalXp, simulatedSalary } = useProgressionStore();
+  const { isAuthenticated, signOut } = useAuth();
   const tier = EDUCATION_TIERS[profile.educationTier] || EDUCATION_TIERS.aurora;
   const isDarkMode = profile.colorMode === 'dark';
 
@@ -97,6 +99,22 @@ export function Header() {
           )}
         </button>
 
+        {isAuthenticated && (
+          <button
+            onClick={() => void signOut()}
+            title="Sign out"
+            aria-label="Sign out"
+            className={`flex items-center gap-2 rounded-xl border px-3 py-2 text-sm font-semibold transition-colors ${
+              isDarkMode
+                ? 'border-[#212745] bg-[#12162a] text-slate-300 hover:border-rose-500/40 hover:bg-rose-500/10 hover:text-rose-300'
+                : 'border-slate-200 bg-slate-100 text-slate-600 hover:border-rose-200 hover:bg-rose-50 hover:text-rose-600'
+            }`}
+          >
+            <LogOut className="h-4 w-4" />
+            <span className="hidden sm:inline">Sign out</span>
+          </button>
+        )}
+
         <button
           onClick={toggleColorMode}
           title="Toggle color mode"
@@ -113,12 +131,15 @@ export function Header() {
           )}
         </button>
 
-        <Link
-          href="/profile"
-          className="w-9 h-9 rounded-xl bg-gradient-to-br from-indigo-500 to-purple-600 text-white font-black flex items-center justify-center text-sm shadow-md hover:scale-105 transition-transform"
-        >
-          {profile.avatarChar}
-        </Link>
+        {isAuthenticated && (
+          <Link
+            href="/profile"
+            aria-label="Open profile"
+            className="w-9 h-9 rounded-xl bg-gradient-to-br from-indigo-500 to-purple-600 text-white font-black flex items-center justify-center text-sm shadow-md hover:scale-105 transition-transform"
+          >
+            {profile.avatarChar}
+          </Link>
+        )}
       </div>
     </header>
   );
