@@ -64,7 +64,7 @@ export default function HomePage() {
             <div className="grid grid-cols-3 gap-2 sm:gap-3">{['Discover', 'Explore', 'Decide'].map((label, index) => <div key={label} className="rounded-2xl border border-white/5 bg-white/[0.035] p-3 text-center"><span className={`mx-auto mb-2 flex h-7 w-7 items-center justify-center rounded-full text-xs font-black ${index === 0 ? 'bg-indigo-400/20 text-indigo-200' : index === 1 ? 'bg-pink-400/20 text-pink-200' : 'bg-amber-400/20 text-amber-200'}`}>0{index + 1}</span><span className="text-xs font-bold text-slate-300">{label}</span></div>)}</div>
           </div>
           <div className="absolute -left-4 top-1/3 hidden items-center gap-2 rounded-xl border border-white/10 bg-[#111429] px-3 py-2 text-xs font-bold text-slate-200 shadow-xl sm:flex"><span className="h-2 w-2 rounded-full bg-emerald-400" /> Skills in progress</div>
-          <div className="absolute -right-3 bottom-12 hidden items-center gap-2 rounded-xl border border-white/10 bg-[#111429] px-3 py-2 text-xs font-bold text-slate-200 shadow-xl sm:flex"><Star className="h-3.5 w-3.5 text-amber-300" /> Find your spark</div>
+          <div className="absolute -right-3 -bottom-5 hidden items-center gap-2 rounded-xl border border-white/10 bg-[#111429] px-3 py-2 text-xs font-bold text-slate-200 shadow-xl sm:flex"><Star className="h-3.5 w-3.5 text-amber-300" /> Find your spark</div>
         </div>
       </section>
 

@@ -68,21 +68,12 @@ export function Sidebar() {
     >
       <div className="p-5">
         <Link href="/" className="flex items-center gap-3 group">
-          <div className="w-10 h-10 rounded-xl bg-gradient-to-tr from-amber-500 to-indigo-600 flex items-center justify-center font-black text-white shadow-lg shadow-indigo-950/30 group-hover:scale-105 transition-transform">
-            DP
-          </div>
-          <div>
-            <div className="text-xs uppercase tracking-widest font-extrabold text-amber-500">
-              DREAM
-            </div>
-            <div
-              className={`text-sm font-black tracking-tight flex items-center gap-1.5 ${
-                isDarkMode ? 'text-white' : 'text-slate-900'
-              }`}
-            >
-              CAREER PATH
-            </div>
-          </div>
+          <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-br from-indigo-500 to-purple-600 shadow-lg shadow-indigo-500/25 transition-transform group-hover:scale-105">
+            <Sparkles className="h-5 w-5 text-white" />
+          </span>
+          <span className={`text-xl font-extrabold tracking-tight ${isDarkMode ? 'text-white' : 'text-slate-900'}`}>
+            Dream<span className="text-indigo-300">Path</span>
+          </span>
         </Link>
 
         <div
