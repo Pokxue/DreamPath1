@@ -489,12 +489,13 @@ export function saveUserSelections(
 ): UserWithProgress | null {
   const db = getDb();
   const complete = db.transaction(() => {
-    db.prepare(`
+    const result = db.prepare(`
       UPDATE users
       SET education_tier = ?, dream_job_id = ?, active_career_id = ?,
           updated_at = CURRENT_TIMESTAMP
       WHERE id = ?
     `).run(educationTier, dreamJobId, dreamJobId, userId);
+    if (result.changes !== 1) return null;
     return getUserById(userId);
   });
   return complete();

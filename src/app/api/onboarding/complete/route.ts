@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { getUserById, saveUserSelections } from '@/lib/database';
 import type { TierId } from '@/types/career';
 
+
 const educationIds = new Set<TierId>(['moonrise', 'starlight', 'nebula', 'galaxy']);
 const careerIds = new Set(['future-doctor', 'software-engineer', 'junior-lawyer']);
 
@@ -29,6 +30,10 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ success: true, user });
   } catch (error) {
     console.error('Onboarding completion error:', error);
-    return NextResponse.json({ error: 'Unable to save your choices.' }, { status: 500 });
+    const message = error instanceof Error ? error.message : 'Unknown database error';
+    return NextResponse.json(
+      { error: 'Unable to save your choices.', details: process.env.NODE_ENV === 'production' ? undefined : message },
+      { status: 500 },
+    );
   }
 }

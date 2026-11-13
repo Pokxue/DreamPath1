@@ -6,7 +6,6 @@ import {
   ArrowLeft, ArrowRight, Check, Code2, GraduationCap, Scale, Sparkles, Stethoscope, type LucideIcon,
 } from 'lucide-react';
 import { useAuth } from '@/contexts/AuthContext';
-import { useProgressionStore } from '@/stores/useProgressionStore';
 import type { TierId } from '@/types/career';
 
 const educationOptions: Array<{ id: TierId; title: string; grade: string; description: string }> = [
@@ -24,13 +23,9 @@ const careerOptions: Array<{ id: string; title: string; description: string; ico
 
 export function OnboardingFlow({ step }: { step: 'education' | 'career' }) {
   const router = useRouter();
-  const { user, isLoading, refreshUser } = useAuth();
-  const setEducationTier = useProgressionStore((state) => state.setEducationTier);
-  const setActiveCareer = useProgressionStore((state) => state.setActiveCareer);
+  const { user, isLoading } = useAuth();
   const [educationTier, setSelectedEducation] = useState<TierId | null>(null);
   const [dreamJobId, setDreamJobId] = useState('');
-  const [isSaving, setIsSaving] = useState(false);
-  const [error, setError] = useState('');
 
   useEffect(() => {
     if (isLoading) return;
@@ -40,47 +35,13 @@ export function OnboardingFlow({ step }: { step: 'education' | 'career' }) {
     }
   }, [isLoading, user, router]);
 
-  useEffect(() => {
-    if (isLoading || !user || step !== 'career') return;
-    if (!sessionStorage.getItem(`dreampath-onboarding-${user.id}`)) router.replace('/onboarding/education');
-  }, [isLoading, user, step, router]);
-
   const continueToCareer = () => {
-    if (!educationTier || !user) return;
-    setEducationTier(educationTier);
-    sessionStorage.setItem(`dreampath-onboarding-${user.id}`, educationTier);
+    if (!educationTier) return;
     router.push('/onboarding/career');
   };
 
-  const finishOnboarding = async () => {
-    if (!user || !dreamJobId) return;
-    const savedTier = sessionStorage.getItem(`dreampath-onboarding-${user.id}`) as TierId | null;
-    if (!savedTier || !educationOptions.some((option) => option.id === savedTier)) {
-      router.replace('/onboarding/education');
-      return;
-    }
-    setError('');
-    setIsSaving(true);
-    try {
-      const response = await fetch('/api/onboarding/complete', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ educationTier: savedTier, dreamJobId }),
-      });
-      const data = await response.json();
-      if (!response.ok) throw new Error(data.error || 'Could not save your choices.');
-      if (!data.user) throw new Error('Your selections were not fully saved. Please try again.');
-      setEducationTier(savedTier);
-      setActiveCareer(dreamJobId);
-      sessionStorage.removeItem(`dreampath-onboarding-${user.id}`);
-      await refreshUser();
-      router.replace('/home');
-      router.refresh();
-    } catch (saveError) {
-      setError(saveError instanceof Error ? saveError.message : 'Could not save your choices. Please try again.');
-    } finally {
-      setIsSaving(false);
-    }
+  const finishOnboarding = () => {
+    router.replace('/home');
   };
 
   if (isLoading || !user) {
@@ -134,11 +95,10 @@ export function OnboardingFlow({ step }: { step: 'education' | 'career' }) {
           </div>
         )}
 
-        {error && <p role="alert" className="mt-5 rounded-xl border border-rose-400/30 bg-rose-500/10 px-4 py-3 text-sm text-rose-200">{error}</p>}
         <footer className="mt-8 flex flex-col-reverse gap-3 border-t border-[#252a48] pt-6 sm:flex-row sm:items-center sm:justify-between">
           {isEducation ? <span className="text-sm text-slate-500">Step 1 of 2 · You can change this later</span> : <button type="button" onClick={() => router.push('/onboarding/education')} className="inline-flex items-center justify-center gap-2 rounded-xl px-4 py-3 text-sm font-bold text-slate-300 transition hover:bg-white/5"><ArrowLeft className="h-4 w-4" /> Back</button>}
-          <button type="button" disabled={isEducation ? !educationTier : !dreamJobId || isSaving} onClick={isEducation ? continueToCareer : finishOnboarding} className="inline-flex min-h-12 items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-indigo-500 to-purple-600 px-6 py-3 font-bold text-white shadow-lg shadow-indigo-950/40 transition hover:brightness-110 disabled:cursor-not-allowed disabled:opacity-40">
-            {isSaving ? 'Saving your path…' : isEducation ? 'Continue' : 'Finish & explore'}
+          <button type="button" disabled={isEducation ? !educationTier : !dreamJobId} onClick={isEducation ? continueToCareer : finishOnboarding} className="inline-flex min-h-12 items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-indigo-500 to-purple-600 px-6 py-3 font-bold text-white shadow-lg shadow-indigo-950/40 transition hover:brightness-110 disabled:cursor-not-allowed disabled:opacity-40">
+            {isEducation ? 'Continue' : 'Finish & explore'}
             {isEducation ? <ArrowRight className="h-4 w-4" /> : <GraduationCap className="h-4 w-4" />}
           </button>
         </footer>
