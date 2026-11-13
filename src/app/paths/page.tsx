@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
 import {
   Sparkles,
@@ -21,8 +21,36 @@ import { playSound } from '@/utils/sound';
 
 export default function DreamPathsPage() {
   const { profile, setActiveCareer } = useProgressionStore();
+  const containerRef = useRef<HTMLDivElement>(null);
+  const [isDarkMode, setIsDarkMode] = useState(true);
   const [searchQuery, setSearchQuery] = useState('');
   const [activeTab, setActiveTab] = useState<'my-paths' | 'discover'>('my-paths');
+
+  useEffect(() => {
+    const el = containerRef.current;
+    if (!el) return;
+
+    const shellEl = el.closest('.min-h-screen.flex') || el.parentElement;
+    if (!shellEl) return;
+
+    const syncTheme = () => {
+      const isLight =
+        shellEl.classList.contains('bg-slate-100') ||
+        shellEl.classList.contains('bg-slate-50') ||
+        shellEl.classList.contains('bg-white');
+      setIsDarkMode(!isLight);
+    };
+
+    syncTheme();
+
+    const observer = new MutationObserver(syncTheme);
+    observer.observe(shellEl, {
+      attributes: true,
+      attributeFilter: ['class']
+    });
+
+    return () => observer.disconnect();
+  }, []);
 
   const getCareerIcon = (iconName: string) => {
     switch (iconName) {
@@ -46,32 +74,48 @@ export default function DreamPathsPage() {
     career.subtitle.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
+  const cardBg = isDarkMode
+    ? 'bg-[#16172B] border-[#2E3254]'
+    : 'bg-white border-slate-200 shadow-sm';
+
+  const headingText = isDarkMode ? 'text-white' : 'text-slate-900';
+  const subText = isDarkMode ? 'text-[#94A3B8]' : 'text-slate-600';
+
   return (
-    <div className="space-y-8 text-white animate-fade-in pb-12">
+    <div
+      ref={containerRef}
+      className={`space-y-8 animate-fade-in pb-12 transition-colors duration-200 ${
+        isDarkMode ? 'text-white' : 'text-slate-900'
+      }`}
+    >
       <div>
         <div className="text-[11px] font-bold uppercase tracking-wider text-[#38BDF8]">
           CHOOSE YOUR JOURNEY
         </div>
-        <h1 className="text-3xl font-extrabold text-white tracking-tight mt-1">
+        <h1 className={`text-3xl font-extrabold tracking-tight mt-1 ${headingText}`}>
           Dream Paths
         </h1>
-        <p className="mt-1 text-[#94A3B8] text-sm leading-relaxed">
+        <p className={`mt-1 text-sm leading-relaxed ${subText}`}>
           Big possibilities. Small steps. Find the future that feels like you.
         </p>
       </div>
 
-      <section className="relative overflow-hidden rounded-[24px] bg-gradient-to-r from-[#171a33] via-[#1b1c43] to-[#251b47] border border-[#2E3254] p-6 sm:p-8 shadow-2xl flex flex-col md:flex-row items-center justify-between">
+      <section className={`relative overflow-hidden rounded-[24px] border p-6 sm:p-8 shadow-2xl flex flex-col md:flex-row items-center justify-between ${
+        isDarkMode
+          ? 'bg-gradient-to-r from-[#171a33] via-[#1b1c43] to-[#251b47] border-[#2E3254]'
+          : 'bg-gradient-to-r from-indigo-50 via-white to-purple-50 border-slate-200'
+      }`}>
         <div className="absolute top-0 right-0 w-96 h-96 bg-indigo-500/10 rounded-full blur-3xl pointer-events-none" />
         
         <div className="relative z-10 max-w-xl">
-          <div className="text-[10px] font-bold uppercase tracking-wider text-[#94A3B8] mb-1">
+          <div className={`text-[10px] font-bold uppercase tracking-wider mb-1 ${subText}`}>
             YOUR NEXT SMALL STEP
           </div>
-          <h2 className="text-2xl sm:text-3xl font-extrabold text-white tracking-tight leading-tight">
+          <h2 className={`text-2xl sm:text-3xl font-extrabold tracking-tight leading-tight ${headingText}`}>
             A little code. A big possibility.
           </h2>
 
-          <p className="mt-2 text-[#94A3B8] text-sm leading-relaxed">
+          <p className={`mt-2 text-sm leading-relaxed ${subText}`}>
             Continue your Software Engineer journey with today's quest: fix the missing button in a school website.
           </p>
 
@@ -88,7 +132,7 @@ export default function DreamPathsPage() {
               <ArrowRight className="w-4 h-4" />
             </Link>
 
-            <span className="text-xs text-[#94A3B8] flex items-center gap-1.5">
+            <span className={`text-xs flex items-center gap-1.5 ${subText}`}>
               <span>10 min</span>
               <span>•</span>
               <span className="text-[#F59E0B] font-bold">+80 XP</span>
@@ -110,13 +154,17 @@ export default function DreamPathsPage() {
       </section>
 
       <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 pt-2">
-        <div className="flex items-center gap-2 bg-[#16172B] p-1.5 rounded-full border border-[#2E3254]">
+        <div className={`flex items-center gap-2 p-1.5 rounded-full border ${
+          isDarkMode ? 'bg-[#16172B] border-[#2E3254]' : 'bg-slate-100 border-slate-200'
+        }`}>
           <button
             onClick={() => setActiveTab('my-paths')}
             className={`px-4 py-1.5 rounded-full text-xs font-bold transition-all ${
               activeTab === 'my-paths'
-                ? 'bg-[#1F213D] text-white border border-[#2E3254]'
-                : 'text-[#94A3B8] hover:text-white'
+                ? isDarkMode
+                  ? 'bg-[#1F213D] text-white border border-[#2E3254]'
+                  : 'bg-white text-slate-900 shadow-sm border border-slate-200'
+                : `${subText} hover:${headingText}`
             }`}
           >
             My paths • 3
@@ -125,8 +173,10 @@ export default function DreamPathsPage() {
             onClick={() => setActiveTab('discover')}
             className={`px-4 py-1.5 rounded-full text-xs font-bold transition-all ${
               activeTab === 'discover'
-                ? 'bg-[#1F213D] text-white border border-[#2E3254]'
-                : 'text-[#94A3B8] hover:text-white'
+                ? isDarkMode
+                  ? 'bg-[#1F213D] text-white border border-[#2E3254]'
+                  : 'bg-white text-slate-900 shadow-sm border border-slate-200'
+                : `${subText} hover:${headingText}`
             }`}
           >
             Discover
@@ -134,13 +184,17 @@ export default function DreamPathsPage() {
         </div>
 
         <div className="relative w-full sm:w-72">
-          <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-[#94A3B8]" />
+          <Search className={`absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 ${subText}`} />
           <input
             type="text"
             placeholder="Search dream paths"
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="w-full bg-[#16172B] border border-[#2E3254] rounded-full pl-10 pr-4 py-2 text-xs text-white placeholder-[#94A3B8] focus:outline-none focus:border-indigo-500 transition-all"
+            className={`w-full border rounded-full pl-10 pr-4 py-2 text-xs focus:outline-none focus:border-indigo-500 transition-all ${
+              isDarkMode
+                ? 'bg-[#16172B] border-[#2E3254] text-white placeholder-[#94A3B8]'
+                : 'bg-white border-slate-200 text-slate-900 placeholder-slate-400 shadow-sm'
+            }`}
           />
         </div>
       </div>
@@ -153,15 +207,21 @@ export default function DreamPathsPage() {
             <div
               key={career.id}
               onClick={() => setActiveCareer(career.id)}
-              className={`p-6 rounded-[20px] bg-[#16172B] border transition-all cursor-pointer relative group flex flex-col justify-between ${
+              className={`p-6 rounded-[20px] border transition-all cursor-pointer relative group flex flex-col justify-between ${
                 isCurrent
-                  ? 'border-indigo-500 shadow-lg shadow-indigo-950/40 ring-1 ring-indigo-500/40'
-                  : 'border-[#2E3254] hover:border-[#3E4472]'
+                  ? isDarkMode
+                    ? 'border-indigo-500 shadow-lg shadow-indigo-950/40 ring-1 ring-indigo-500/40 bg-[#16172B]'
+                    : 'border-indigo-600 shadow-md ring-2 ring-indigo-500/20 bg-indigo-50/50'
+                  : cardBg
               }`}
             >
               <div>
                 <div className="flex items-center justify-between mb-4">
-                  <span className="text-[10px] font-bold uppercase px-2.5 py-1 rounded-lg bg-[#1F213D] text-[#38BDF8] border border-[#2E3254]">
+                  <span className={`text-[10px] font-bold uppercase px-2.5 py-1 rounded-lg border ${
+                    isDarkMode
+                      ? 'bg-[#1F213D] text-[#38BDF8] border-[#2E3254]'
+                      : 'bg-indigo-50 text-indigo-600 border-indigo-100'
+                  }`}>
                     {career.stageInfo}
                   </span>
                   <div className="w-9 h-9 rounded-xl bg-[#38BDF8]/10 border border-[#38BDF8]/20 flex items-center justify-center text-[#38BDF8]">
@@ -169,17 +229,19 @@ export default function DreamPathsPage() {
                   </div>
                 </div>
 
-                <h3 className="text-lg font-bold text-white group-hover:text-indigo-300 transition-colors">
+                <h3 className={`text-lg font-bold group-hover:text-indigo-400 transition-colors ${headingText}`}>
                   {career.title}
                 </h3>
-                <p className="mt-1 text-sm text-[#94A3B8] line-clamp-2">{career.subtitle}</p>
+                <p className={`mt-1 text-sm line-clamp-2 ${subText}`}>{career.subtitle}</p>
 
                 <div className="mt-5 space-y-1.5">
-                  <div className="flex items-center justify-between text-xs text-[#94A3B8]">
+                  <div className={`flex items-center justify-between text-xs ${subText}`}>
                     <span>Path progress</span>
-                    <span className="font-bold text-white">{career.progressPercent}%</span>
+                    <span className={`font-bold ${headingText}`}>{career.progressPercent}%</span>
                   </div>
-                  <div className="w-full bg-[#1F213D] h-2 rounded-full overflow-hidden">
+                  <div className={`w-full h-2 rounded-full overflow-hidden ${
+                    isDarkMode ? 'bg-[#1F213D]' : 'bg-slate-100'
+                  }`}>
                     <div
                       className="bg-gradient-to-r from-[#38BDF8] to-[#3B82F6] h-full rounded-full transition-all"
                       style={{ width: `${career.progressPercent}%` }}
@@ -188,7 +250,9 @@ export default function DreamPathsPage() {
                 </div>
               </div>
 
-              <div className="mt-6 pt-4 border-t border-[#2E3254]/50 flex items-center justify-end">
+              <div className={`mt-6 pt-4 border-t flex items-center justify-end ${
+                isDarkMode ? 'border-[#2E3254]/50' : 'border-slate-100'
+              }`}>
                 <Link
                   href={`/paths/mission?career=${career.id}`}
                   onClick={() => {
@@ -198,7 +262,9 @@ export default function DreamPathsPage() {
                   className={`px-4 py-2 rounded-full text-xs font-bold transition-all ${
                     isCurrent
                       ? 'bg-gradient-to-r from-[#8B5CF6] to-[#6D28D9] text-white shadow-md'
-                      : 'bg-[#1F213D] hover:bg-[#2A2E52] text-indigo-300 border border-[#2E3254]'
+                      : isDarkMode
+                        ? 'bg-[#1F213D] hover:bg-[#2A2E52] text-indigo-300 border border-[#2E3254]'
+                        : 'bg-slate-100 hover:bg-slate-200 text-slate-700 border border-slate-200'
                   }`}
                 >
                   {isCurrent ? 'Continue mission ▷' : 'Explore path ▷'}
@@ -211,20 +277,20 @@ export default function DreamPathsPage() {
 
       <section className="space-y-4 pt-4">
         <div className="flex items-center justify-between">
-          <h3 className="text-xl font-bold text-white tracking-tight">
+          <h3 className={`text-xl font-bold tracking-tight ${headingText}`}>
             Your Software Engineer roadmap
           </h3>
-          <span className="text-xs text-[#94A3B8]">3 of 8 stages reached</span>
+          <span className={`text-xs ${subText}`}>3 of 8 stages reached</span>
         </div>
 
-        <div className="p-6 sm:p-8 rounded-[24px] bg-[#16172B] border border-[#2E3254] grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 relative">
+        <div className={`p-6 sm:p-8 rounded-[24px] border grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 relative ${cardBg}`}>
           <div className="space-y-3 relative">
             <div className="w-8 h-8 rounded-full bg-[#10B981]/20 border border-[#10B981]/40 flex items-center justify-center text-[#10B981]">
               <CheckCircle2 className="w-4 h-4" />
             </div>
             <div>
-              <h4 className="text-sm font-bold text-white">Meet your future</h4>
-              <p className="text-xs text-[#94A3B8] mt-0.5">Discover the world of code</p>
+              <h4 className={`text-sm font-bold ${headingText}`}>Meet your future</h4>
+              <p className={`text-xs mt-0.5 ${subText}`}>Discover the world of code</p>
             </div>
             <div className="text-[11px] font-bold text-[#10B981] pt-1">Completed</div>
           </div>
@@ -234,8 +300,8 @@ export default function DreamPathsPage() {
               <CheckCircle2 className="w-4 h-4" />
             </div>
             <div>
-              <h4 className="text-sm font-bold text-white">Think like a coder</h4>
-              <p className="text-xs text-[#94A3B8] mt-0.5">Patterns & problem solving</p>
+              <h4 className={`text-sm font-bold ${headingText}`}>Think like a coder</h4>
+              <p className={`text-xs mt-0.5 ${subText}`}>Patterns & problem solving</p>
             </div>
             <div className="text-[11px] font-bold text-[#10B981] pt-1">Completed</div>
           </div>
@@ -245,39 +311,49 @@ export default function DreamPathsPage() {
               <Code2 className="w-4 h-4" />
             </div>
             <div>
-              <h4 className="text-sm font-bold text-white">Build something small</h4>
-              <p className="text-xs text-[#94A3B8] mt-0.5">Your first friendly study app</p>
+              <h4 className={`text-sm font-bold ${headingText}`}>Build something small</h4>
+              <p className={`text-xs mt-0.5 ${subText}`}>Your first friendly study app</p>
             </div>
             <div className="text-[11px] font-bold text-indigo-400 pt-1">In progress</div>
           </div>
 
           <div className="space-y-3 relative">
-            <div className="w-8 h-8 rounded-full bg-[#1F213D] border border-[#2E3254] flex items-center justify-center text-[#94A3B8]">
+            <div className={`w-8 h-8 rounded-full border flex items-center justify-center ${
+              isDarkMode ? 'bg-[#1F213D] border-[#2E3254] text-[#94A3B8]' : 'bg-slate-100 border-slate-200 text-slate-400'
+            }`}>
               <Lock className="w-4 h-4" />
             </div>
             <div>
-              <h4 className="text-sm font-bold text-slate-400">Make it your own</h4>
-              <p className="text-xs text-[#94A3B8]/60 mt-0.5">Unlock after stage 3</p>
+              <h4 className={`text-sm font-bold ${isDarkMode ? 'text-slate-400' : 'text-slate-500'}`}>Make it your own</h4>
+              <p className={`text-xs mt-0.5 ${isDarkMode ? 'text-[#94A3B8]/60' : 'text-slate-400'}`}>Unlock after stage 3</p>
             </div>
-            <div className="text-[11px] font-bold text-[#94A3B8]/60 pt-1">Up next</div>
+            <div className={`text-[11px] font-bold pt-1 ${isDarkMode ? 'text-[#94A3B8]/60' : 'text-slate-400'}`}>Up next</div>
           </div>
         </div>
       </section>
 
-      <section className="p-6 rounded-[24px] bg-gradient-to-r from-[#16172B] to-[#1F213D] border border-[#2E3254] flex flex-col sm:flex-row items-center justify-between gap-4">
+      <section className={`p-6 rounded-[24px] border flex flex-col sm:flex-row items-center justify-between gap-4 ${
+        isDarkMode
+          ? 'bg-gradient-to-r from-[#16172B] to-[#1F213D] border-[#2E3254]'
+          : 'bg-gradient-to-r from-indigo-50 to-purple-50 border-indigo-100'
+      }`}>
         <div className="flex items-center gap-4">
           <div className="w-10 h-10 rounded-2xl bg-indigo-600/20 border border-indigo-500/30 flex items-center justify-center text-indigo-400 shrink-0">
             <Compass className="w-5 h-5" />
           </div>
           <div>
-            <h4 className="text-sm font-bold text-white">You don't have to choose just one dream.</h4>
-            <p className="text-xs text-[#94A3B8]">Try a new path whenever you're curious. Your progress will always be here.</p>
+            <h4 className={`text-sm font-bold ${headingText}`}>You don't have to choose just one dream.</h4>
+            <p className={`text-xs ${subText}`}>Try a new path whenever you're curious. Your progress will always be here.</p>
           </div>
         </div>
         <Link
           href="/paths"
           onClick={() => playSound('click')}
-          className="px-5 py-2.5 rounded-full bg-white hover:bg-slate-100 text-[#0B0C15] font-bold text-xs shadow-md transition-all shrink-0 flex items-center gap-1.5"
+          className={`px-5 py-2.5 rounded-full font-bold text-xs shadow-md transition-all shrink-0 flex items-center gap-1.5 ${
+            isDarkMode
+              ? 'bg-white hover:bg-slate-100 text-[#0B0C15]'
+              : 'bg-indigo-600 hover:bg-indigo-700 text-white'
+          }`}
         >
           <span>Discover more</span>
           <ArrowRight className="w-3.5 h-3.5" />

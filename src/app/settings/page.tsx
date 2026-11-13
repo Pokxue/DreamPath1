@@ -1,6 +1,6 @@
 'use client';
 
-import React from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import {
   Volume2,
   VolumeX,
@@ -15,6 +15,45 @@ import { speakText, stopSpeaking } from '@/utils/sound';
 
 export default function SettingsPage() {
   const { profile, setSettings, setEducationTier } = useProgressionStore();
+  const containerRef = useRef<HTMLDivElement>(null);
+  const [isDarkMode, setIsDarkMode] = useState(true);
+
+  useEffect(() => {
+    const el = containerRef.current;
+    if (!el) return;
+
+    const shellEl = el.closest('.min-h-screen.flex') || el.parentElement;
+    if (!shellEl) return;
+
+    const syncTheme = () => {
+      const isLight =
+        shellEl.classList.contains('bg-slate-100') ||
+        shellEl.classList.contains('bg-slate-50') ||
+        shellEl.classList.contains('bg-white');
+      setIsDarkMode(!isLight);
+    };
+
+    syncTheme();
+
+    const observer = new MutationObserver(syncTheme);
+    observer.observe(shellEl, {
+      attributes: true,
+      attributeFilter: ['class']
+    });
+
+    return () => observer.disconnect();
+  }, []);
+
+  const cardBg = isDarkMode
+    ? 'bg-[#16172B] border-white/5'
+    : 'bg-white border-slate-200 shadow-sm';
+
+  const innerCardBg = isDarkMode
+    ? 'bg-[#0D0E1A]/40 border-white/5'
+    : 'bg-slate-50 border-slate-200/80';
+
+  const headingText = isDarkMode ? 'text-white' : 'text-slate-900';
+  const subText = isDarkMode ? 'text-slate-400' : 'text-slate-600';
 
   const handleReadAloudToggle = () => {
     const nextVal = !profile.readAloudEnabled;
@@ -37,31 +76,32 @@ export default function SettingsPage() {
   const tiersList: TierId[] = ['moonrise', 'starlight', 'aurora', 'nebula', 'galaxy'];
 
   return (
-    <div className="space-y-8 max-w-5xl mx-auto">
-      {/* Header */}
+    <div
+      ref={containerRef}
+      className={`min-h-screen font-sans space-y-8 max-w-5xl mx-auto p-6 md:p-10 transition-colors duration-200 ${
+        isDarkMode ? 'bg-[#0D0E1A] text-white' : 'bg-transparent text-slate-900'
+      }`}
+    >
       <div>
-        <div className="text-xs font-bold uppercase tracking-wider text-indigo-400">
+        <div className="text-xs font-bold uppercase tracking-wider text-indigo-500">
           PREFERENCES
         </div>
-        <h1 className="text-3xl font-extrabold text-white tracking-tight mt-1">
+        <h1 className={`text-3xl font-extrabold tracking-tight mt-1 ${headingText}`}>
           Settings
         </h1>
-        <p className="mt-2 text-slate-300 text-sm max-w-2xl leading-relaxed">
+        <p className={`mt-2 text-sm max-w-2xl leading-relaxed ${subText}`}>
           Make DreamPath comfortable, accessible, and safe for you.
         </p>
       </div>
 
-      {/* 2-Column Grid matching Figma settings screenshot */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        {/* Left Column: Learning Experience toggles */}
-        <div className="p-6 sm:p-8 rounded-3xl bg-[#0e1224] border border-[#1e233d] space-y-4">
-          <h3 className="text-base font-bold text-white mb-2">Learning experience</h3>
+        <div className={`p-6 sm:p-8 rounded-3xl border space-y-4 ${cardBg}`}>
+          <h3 className={`text-base font-bold mb-2 ${headingText}`}>Learning experience</h3>
 
-          {/* Read questions aloud */}
-          <div className="p-4 rounded-2xl bg-[#141830] border border-[#212850] flex items-center justify-between">
+          <div className={`p-4 rounded-2xl border flex items-center justify-between ${innerCardBg}`}>
             <div>
-              <div className="text-sm font-bold text-white">Read questions aloud</div>
-              <div className="text-xs text-slate-400">Hear instructions and important clues</div>
+              <div className={`text-sm font-bold ${headingText}`}>Read questions aloud</div>
+              <div className={`text-xs ${subText}`}>Hear instructions and important clues</div>
             </div>
             <button
               onClick={handleReadAloudToggle}
@@ -77,11 +117,10 @@ export default function SettingsPage() {
             </button>
           </div>
 
-          {/* Sound effects */}
-          <div className="p-4 rounded-2xl bg-[#141830] border border-[#212850] flex items-center justify-between">
+          <div className={`p-4 rounded-2xl border flex items-center justify-between ${innerCardBg}`}>
             <div>
-              <div className="text-sm font-bold text-white">Sound effects</div>
-              <div className="text-xs text-slate-400">Mission feedback and celebration sounds</div>
+              <div className={`text-sm font-bold ${headingText}`}>Sound effects</div>
+              <div className={`text-xs ${subText}`}>Mission feedback and celebration sounds</div>
             </div>
             <button
               onClick={handleSoundEffectsToggle}
@@ -97,11 +136,10 @@ export default function SettingsPage() {
             </button>
           </div>
 
-          {/* Reduce motion */}
-          <div className="p-4 rounded-2xl bg-[#141830] border border-[#212850] flex items-center justify-between">
+          <div className={`p-4 rounded-2xl border flex items-center justify-between ${innerCardBg}`}>
             <div>
-              <div className="text-sm font-bold text-white">Reduce motion</div>
-              <div className="text-xs text-slate-400">Use fewer animations and transitions</div>
+              <div className={`text-sm font-bold ${headingText}`}>Reduce motion</div>
+              <div className={`text-xs ${subText}`}>Use fewer animations and transitions</div>
             </div>
             <button
               onClick={handleReduceMotionToggle}
@@ -118,46 +156,44 @@ export default function SettingsPage() {
           </div>
         </div>
 
-        {/* Right Column: Account & Safety items */}
-        <div className="p-6 sm:p-8 rounded-3xl bg-[#0e1224] border border-[#1e233d] space-y-4">
-          <h3 className="text-base font-bold text-white mb-2">Account & safety</h3>
+        <div className={`p-6 sm:p-8 rounded-3xl border space-y-4 ${cardBg}`}>
+          <h3 className={`text-base font-bold mb-2 ${headingText}`}>Account & safety</h3>
 
-          <div className="p-4 rounded-2xl bg-[#141830] border border-[#212850] flex items-center justify-between">
+          <div className={`p-4 rounded-2xl border flex items-center justify-between ${innerCardBg}`}>
             <div>
-              <div className="text-sm font-bold text-white">Personal information</div>
-              <div className="text-xs text-slate-400">Name, age, education level</div>
+              <div className={`text-sm font-bold ${headingText}`}>Personal information</div>
+              <div className={`text-xs ${subText}`}>Name, age, education level</div>
             </div>
-            <span className="text-xs font-semibold text-indigo-400">View</span>
+            <span className="text-xs font-semibold text-indigo-500">View</span>
           </div>
 
-          <div className="p-4 rounded-2xl bg-[#141830] border border-[#212850] flex items-center justify-between">
+          <div className={`p-4 rounded-2xl border flex items-center justify-between ${innerCardBg}`}>
             <div>
-              <div className="text-sm font-bold text-white">Parent connection</div>
-              <div className="text-xs text-slate-400">{profile.parentName} • Verified</div>
+              <div className={`text-sm font-bold ${headingText}`}>Parent connection</div>
+              <div className={`text-xs ${subText}`}>{profile.parentName} • Verified</div>
             </div>
-            <span className="text-xs font-semibold text-emerald-400">Active</span>
+            <span className="text-xs font-semibold text-emerald-500">Active</span>
           </div>
 
-          <div className="p-4 rounded-2xl bg-[#141830] border border-[#212850] flex items-center justify-between">
+          <div className={`p-4 rounded-2xl border flex items-center justify-between ${innerCardBg}`}>
             <div>
-              <div className="text-sm font-bold text-white">Screen time</div>
-              <div className="text-xs text-slate-400">{profile.screenTimeMaxMinutes} minute daily limit</div>
+              <div className={`text-sm font-bold ${headingText}`}>Screen time</div>
+              <div className={`text-xs ${subText}`}>{profile.screenTimeMaxMinutes} minute daily limit</div>
             </div>
-            <span className="text-xs font-semibold text-amber-400">Configured</span>
+            <span className="text-xs font-semibold text-amber-500">Configured</span>
           </div>
         </div>
       </div>
 
-      {/* Educational Tier Framework Switcher from SPEC.md */}
-      <div className="p-6 sm:p-8 rounded-3xl bg-[#0e1224] border border-[#1e233d] space-y-4">
+      <div className={`p-6 sm:p-8 rounded-3xl border space-y-4 ${cardBg}`}>
         <div>
-          <div className="text-xs font-bold uppercase tracking-wider text-indigo-400">
+          <div className="text-xs font-bold uppercase tracking-wider text-indigo-500">
             PEDAGOGICAL FRAMEWORK
           </div>
-          <h3 className="text-xl font-bold text-white mt-1">
-            Educational Tier Switcher (5 Tiers from SPEC.md)
+          <h3 className={`text-xl font-bold mt-1 ${headingText}`}>
+            Educational Tier Switcher (5 Tiers)
           </h3>
-          <p className="mt-1 text-xs text-slate-400">
+          <p className={`mt-1 text-xs ${subText}`}>
             Adapts vocabulary, UI tap targets, quiz questions count, and XP multipliers.
           </p>
         </div>
@@ -173,7 +209,9 @@ export default function SettingsPage() {
                 className={`p-4 rounded-2xl border text-left transition-all flex flex-col justify-between ${
                   isSelected
                     ? 'border-indigo-500 bg-indigo-600/20 ring-1 ring-indigo-500 text-white'
-                    : 'bg-[#141830] border-[#20274e] text-slate-300 hover:bg-[#1a2040]'
+                    : isDarkMode
+                    ? 'bg-[#0D0E1A]/40 border-white/5 text-slate-300 hover:bg-[#16172B]'
+                    : 'bg-slate-50 border-slate-200 text-slate-700 hover:bg-slate-100'
                 }`}
               >
                 <div>
@@ -181,12 +219,12 @@ export default function SettingsPage() {
                     <span className="text-xs font-extrabold">{t.name}</span>
                     {isSelected && <CheckCircle2 className="w-4 h-4 text-indigo-400" />}
                   </div>
-                  <div className="text-[11px] text-slate-400">{t.gradeDesc}</div>
-                  <div className="text-[10px] text-indigo-300 font-semibold">{t.targetAge}</div>
+                  <div className={`text-[11px] ${subText}`}>{t.gradeDesc}</div>
+                  <div className="text-[10px] text-indigo-500 font-semibold">{t.targetAge}</div>
                 </div>
 
-                <div className="mt-4 pt-2 border-t border-[#1e2447] text-[10px] text-slate-400">
-                  Phase: <strong className="text-white">{t.phase}</strong>
+                <div className={`mt-4 pt-2 border-t text-[10px] ${isDarkMode ? 'border-white/5 text-slate-400' : 'border-slate-200 text-slate-500'}`}>
+                  Phase: <strong className={headingText}>{t.phase}</strong>
                 </div>
               </button>
             );
@@ -196,4 +234,3 @@ export default function SettingsPage() {
     </div>
   );
 }
-
